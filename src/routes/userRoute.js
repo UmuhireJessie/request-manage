@@ -13,7 +13,7 @@ const router = express.Router()
 router.post('/register-student', signupValidate, checkUserExist, Users.registerStudent)
 router.post('/register-faculty', signupValidate, checkUserExist, Users.registerFaculty)
 router.post('/login', loginValidate, Users.login)
-router.post('/verify-faculty/:id', validateUUIDMiddleware, checkRole('admin'), Users.verifyFacultyAccount)
+router.post('/verify-faculty/:id', isAuthenticated, validateUUIDMiddleware, checkRole('admin'), Users.verifyFacultyAccount)
 router.patch(
     '/change-password',
     isAuthenticated,

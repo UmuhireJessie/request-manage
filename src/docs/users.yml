@@ -25,7 +25,7 @@
                 example: 123@Pass
               
     responses:
-      "200":
+      "201":
         description: Successful operation
       "400":
         description: Bad Request
@@ -59,7 +59,7 @@
                 example: 123@Pass
               
     responses:
-      "200":
+      "201":
         description: Successful operation
       "400":
         description: Bad Request
@@ -98,8 +98,8 @@
   post:
     tags:
       - Admin
-    summary: Verify faculty Account
-    description: Verify faculty Account
+    summary: Verify or unverify faculty Account
+    description: Verify or unverify faculty Account
     parameters:
       - name: id
         in: path
@@ -232,5 +232,128 @@
         description: Successful operation
       "401":
         description: UnAauthorized
+      "500":
+        description: Internal Server Error
+
+/api/v1/users/request:
+  post:
+    tags:
+      - Requests
+    summary: Post a request by a student
+    description: Post a request by a student
+    security:
+      - {}
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+                example: Academic Claim
+              detail:
+                type: string
+                example: My grades are so high
+              requestCategory:
+                type: string
+                example: academic
+              assigneeId:
+                type: string
+                example: 8739016d-15b2-407b-a06b-6ac8a6217da1
+              
+    responses:
+      "200":
+        description: Successful operation
+      "400":
+        description: Bad Request
+      "500":
+        description: Internal Server Error
+
+/api/v1/users/request/all:
+  get:
+    tags:
+      - Admin
+    summary: Get all requests by a admin
+    description: Get all requests by a admin
+    security:
+      - {}
+      - bearerAuth: []        
+    responses:
+      "200":
+        description: Successful operation
+      "400":
+        description: Bad Request
+      "500":
+        description: Internal Server Error
+
+/api/v1/users/request/single:
+  get:
+    tags:
+      - Requests
+    summary: Get all requests by a user
+    description: Get all requests by a user
+    security:
+      - {}
+      - bearerAuth: []        
+    responses:
+      "200":
+        description: Successful operation
+      "400":
+        description: Bad Request
+      "500":
+        description: Internal Server Error
+
+/api/v1/users/request/{requestId}/feedback:
+  post:
+    tags:
+      - Requests
+    summary: Post a response by assigned user
+    description: Post a response by assigned user
+    security:
+      - {}
+      - bearerAuth: []
+    parameters:
+      - name: requestId
+        in: path
+        required: true
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              detail:
+                type: string
+                example: Here is my response
+              
+    responses:
+      "201":
+        description: Successful operation
+      "400":
+        description: Bad Request
+      "500":
+        description: Internal Server Error
+
+  get:
+    tags:
+      - Requests
+    summary: Get all responses by assigned user
+    description: Get all responses by assigned user
+    security:
+      - {}
+      - bearerAuth: []
+    parameters:
+      - name: requestId
+        in: path
+        required: true    
+    responses:
+      "200":
+        description: Successful operation
+      "400":
+        description: Bad Request
       "500":
         description: Internal Server Error

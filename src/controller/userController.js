@@ -7,11 +7,15 @@ const saltRounds = Number(process.env.SALTROUNDS) || 10;
 class Users {
   static async registerStudent(req, res) {
     try {
-      const { data } = await UserSvc.addStudent(req.body);
-      return res.status(201).json({
+      const { data, message400 } = await UserSvc.addStudent(req.body);
+      if(message400) {
+        return res.status(400).json({ status: "fail", message: message400 })
+      } if (data) {
+        return res.status(201).json({
         status: "success",
         data,
       });
+      }
     } catch (error) {
       return res.status(500).json({
         status: "error",
@@ -22,11 +26,15 @@ class Users {
 
   static async registerFaculty(req, res) {
     try {
-      const { data } = await UserSvc.addFaculty(req.body);
-      return res.status(201).json({
+      const { data, message400 } = await UserSvc.addFaculty(req.body);
+      if(message400) {
+        return res.status(400).json({ status: "fail", message: message400 })
+      } if (data) {
+        return res.status(201).json({
         status: "success",
         data,
       });
+      }
     } catch (error) {
       return res.status(500).json({
         status: "error",
@@ -123,7 +131,7 @@ class Users {
         });
       }
       const users = await UserSvc.changeUserStatus(id);
-      const statusMessage = users.isActive ? "activated" : "deactivated";
+      const statusMessage = users.isVerified ? "activated" : "deactivated";
       return res.status(200).json({
         status: "success",
         message: `User ${statusMessage} successfully`,
@@ -169,6 +177,7 @@ class Users {
       });
     }
   }
+  
   static async getAllFaculty(req, res) {
     try {
       const allFac = await UserSvc.getAllFacilitators()
@@ -180,6 +189,7 @@ class Users {
       });
     }
   }
+
   static async getAllStudents(req, res) {
     try {
       const allStu = await UserSvc.getAllStudents()

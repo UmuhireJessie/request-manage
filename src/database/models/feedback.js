@@ -24,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
     respondentId: {
       type: DataTypes.STRING,
       allowNull: false
-    }
+    },
+    requestId: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Feedback',

@@ -15,7 +15,14 @@ module.exports = {
       detail: {
         type: Sequelize.STRING
       },
-      requesterId: {
+      requestCategory: {
+        type: Sequelize.STRING
+      },
+      studentId: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      assigneeId: {
         type: Sequelize.STRING,
         allowNull: false
       },
