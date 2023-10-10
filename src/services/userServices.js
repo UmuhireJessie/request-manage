@@ -23,8 +23,8 @@ class UserSvc {
     data.password = await bcrypt.hash(data.password, saltRounds);
     const { firstName, lastName, email, password } = data;
     const emailDomain = email.split('@')[1];
-    if (emailDomain !== 'alustudent.com') {
-      return { message400: 'Invalid ALU student email address'}
+    if (emailDomain !== 'alueducation.com') {
+      return { message400: 'Invalid ALU faculty email address'}
     }
     const user = await User.create({
       firstName,

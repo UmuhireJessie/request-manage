@@ -16,7 +16,7 @@ module.exports = {
           userId: uuid(),
           firstName: 'Umuhire',
           lastName: 'Jessie',
-          email: 'umuhirejessie@gmail.com',
+          email: 'umuhirejessie@alueducation.com',
           password: await bcrypt.hash('123Password', saltRounds),
           role: 'admin',
           isVerified: true,

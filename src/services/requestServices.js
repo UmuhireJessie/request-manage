@@ -61,7 +61,7 @@ class RequestSvc {
     }
 
     const admin = await User.findOne({ where: { userId }})
-    if (oneReq.assigneeId !== userId || oneReq.studentId !== userId || admin.role !== 'admin' ) {
+    if (oneReq.assigneeId !== userId && oneReq.studentId !== userId && admin.role !== 'admin' ) {
       return { message400: 'Sorry, the request is not assigned to you' }
     } 
 
@@ -80,11 +80,12 @@ class RequestSvc {
       return { message404: 'Request not found' }
     }
     const admin = await User.findOne({ where: { userId }})
-    if (oneReq.assigneeId !== userId || oneReq.studentId !== userId || admin.role !== 'admin' ) {
+    if (oneReq.assigneeId !== userId && oneReq.studentId !== userId && admin.role !== 'admin' ) {
       return { message400: 'Sorry, the request is not assigned to you' }
     } 
     const allFed = await Feedback.findAll({
       where: { requestId },
+      include: { model: User, as: "respondants" },
     });
     return { response: allFed };
   }

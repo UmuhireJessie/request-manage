@@ -3,10 +3,10 @@ export default function checkAdmin () {
     try {
       const userRole = req.user.role
 
-      if (userRole === 'admin') {
+      if (userRole === 'admin' || userRole === 'facilitator') {
         return res
           .status(403)
-          .json({ status: 'fail', message: 'Sorry, admin can not make a request' })
+          .json({ status: 'fail', message: 'Sorry, you are not allowed to make a request' })
       }
       next()
     } catch (err) {

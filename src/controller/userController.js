@@ -63,7 +63,7 @@ class Users {
       if (user.isVerified === false) {
         return res
           .status(400)
-          .json({ status: "fail", message: "Your account is not verified  please contact administrator to verify it" });
+          .json({ status: "fail", message: "Your account is not verified please contact administrator to verify it" });
       }
       
       const token = Jwt.generateToken({
