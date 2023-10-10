@@ -1,0 +1,236 @@
+/api/v1/users/register-student:
+  post:
+    tags:
+      - Users
+    summary: Create a new student account
+    description: Create a new student account
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              firstName:
+                type: string
+                example: Umuhire
+              lastName:
+                type: string
+                example: Jessie
+              email:
+                type: string
+                example: jessiestudent@gmail.com
+              password:
+                type: string
+                example: 123@Pass
+              
+    responses:
+      "200":
+        description: Successful operation
+      "400":
+        description: Bad Request
+      "500":
+        description: Internal Server Error
+
+/api/v1/users/register-faculty:
+  post:
+    tags:
+      - Users
+    summary: Create a new faculty account
+    description: Create a new faculty account
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              firstName:
+                type: string
+                example: Umuhire
+              lastName:
+                type: string
+                example: Jessie
+              email:
+                type: string
+                example: jessiefaculty@gmail.com
+              password:
+                type: string
+                example: 123@Pass
+              
+    responses:
+      "200":
+        description: Successful operation
+      "400":
+        description: Bad Request
+      "500":
+        description: Internal Server Error
+
+/api/v1/users/login:
+  post:
+    tags:
+      - Users
+    summary: Login to your account
+    description: Login to your account
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                example: jessiefaculty@gmail.com
+              password:
+                type: string
+                example: 123@Pass
+              
+    responses:
+      "200":
+        description: Successful operation
+      "400":
+        description: Bad Request
+      "500":
+        description: Internal Server Error
+        
+/api/v1/users/verify-faculty/{id}:
+  post:
+    tags:
+      - Admin
+    summary: Verify faculty Account
+    description: Verify faculty Account
+    parameters:
+      - name: id
+        in: path
+        required: true
+    security:
+      - {}
+      - bearerAuth: []
+    responses:
+      "200":
+        description: Successful operation
+      "401":
+        description: UnAauthorized
+      "500":
+        description: Internal Server Error
+
+/api/v1/users/change-password:
+  patch:
+    tags:
+      - Users
+    summary: change old password
+    description: change old password
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              oldPassword:
+                type: string
+                example: 123@Pass
+              newPassword:
+                type: string
+                example: 123Passq
+    security:
+      - {}
+      - bearerAuth: []
+    responses:
+      "200":
+        description: Successful operation
+      "400":
+        description: Bad Request
+      "401":
+        description: UnAauthorized
+      "500":
+        description: Internal Server Error
+
+/api/v1/users/profile:
+  get:
+    tags:
+      - Users
+    summary: get user profile
+    description: get user profile
+    security:
+      - {}
+      - bearerAuth: []
+    responses:
+      "200":
+        description: Successful operation
+      "400":
+        description: Bad Request
+      "401":
+        description: UnAauthorized
+      "500":
+        description: Internal Server Error
+
+/api/v1/users/profiles:
+  patch:
+    tags:
+      - Users
+    summary: Update user profile
+    description: Update user profile
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              firstName:
+                type: string
+                example: John
+              lastName:
+                type: string
+                example: Doe
+              email:
+                type: string
+                example: john@example.com
+    security:
+      - {}
+      - bearerAuth: []
+    responses:
+      "200":
+        description: Successful operation
+      "400":
+        description: Bad Request
+      "401":
+        description: UnAauthorized
+      "500":
+        description: Internal Server Error
+
+/api/v1/users/all-faculty:
+  get:
+    tags:
+      - Users
+    summary: Get all faculties
+    description: Get all faculties
+    security:
+      - {}
+      - bearerAuth: []
+    responses:
+      "200":
+        description: Successful operation
+      "401":
+        description: UnAauthorized
+      "500":
+        description: Internal Server Error
+
+/api/v1/users/all-student:
+  get:
+    tags:
+      - Admin
+    summary: Get all students
+    description: Get all students
+    security:
+      - {}
+      - bearerAuth: []
+    responses:
+      "200":
+        description: Successful operation
+      "401":
+        description: UnAauthorized
+      "500":
+        description: Internal Server Error
