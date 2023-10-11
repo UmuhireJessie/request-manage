@@ -12,7 +12,7 @@ async function requestValidation (data) {
       'academic'
     )
     .label('requestCategory'),
-    assigneeId: joi.string().min(3).required().label('assigneeId'),
+    assigneeId: joi.string().min(3).label('assigneeId'),
   })
 
   return await schema.validate(data, {

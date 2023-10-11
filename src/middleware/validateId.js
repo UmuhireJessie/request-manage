@@ -1,6 +1,9 @@
 import { validate } from 'uuid'
 
 const validateAssigneeId = (req, res, next) => {
+  if (req.body.requestCategory === 'administrative'){
+    return next()
+  }
   const { assigneeId } = req.body
 
   if (!validate(assigneeId)) {

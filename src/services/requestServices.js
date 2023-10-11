@@ -5,18 +5,20 @@ class RequestSvc {
   static async addRequest(data) {
     const studentId = data.user.userId
     const { title, detail, requestCategory, assigneeId } = data.body;
-    const facultyExist = await User.findOne({
-      where: {
-        userId: assigneeId,
-        [Op.or]: [{ role: "admin" }, { role: "facilitator" }]
+    if (assigneeId) {
+      const facultyExist = await User.findOne({
+        where: {
+          userId: assigneeId,
+          [Op.or]: [{ role: "admin" }, { role: "facilitator" }]
+        }
+      })
+      if (!facultyExist) {
+        return { message404: 'Assignee not found' }
       }
-    })
-    if (!facultyExist) {
-      return { message404: 'Assignee not found' }
-    }
-    if (!facultyExist.isVerified) {
-      return { message404: 'Sorry, this facilitator is not verified' }
-    }
+      if (!facultyExist.isVerified) {
+        return { message404: 'Sorry, this facilitator is not verified' }
+      }
+    }    
     let request
     const admin = await User.findOne({ where: { role: "admin" }})
     if (requestCategory === "administrative" ){
