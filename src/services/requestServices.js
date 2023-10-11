@@ -39,7 +39,12 @@ class RequestSvc {
     return { data: request };
   }
   static async getAllRequestsAdmin() {
-    const allReq = await Request.findAll();
+    const allReq = await Request.findAll({
+      include: [
+        { model: User, as: 'student', attributes: ['userId', 'firstName', 'lastName', 'email', 'role', 'isVerified', 'createdAt', 'updatedAt'] },
+        { model: User, as: 'assignee', attributes: ['userId', 'firstName', 'lastName', 'email', 'role', 'isVerified', 'createdAt', 'updatedAt'] }
+      ]
+    });
     return allReq;
   }
   static async getAllRequestsById(id) {
@@ -47,6 +52,10 @@ class RequestSvc {
       where: {
         [Op.or]: [{ studentId: id }, { assigneeId: id }]
       },
+      include: [
+        { model: User, as: 'student', attributes: ['userId', 'firstName', 'lastName', 'email', 'role', 'isVerified', 'createdAt', 'updatedAt'] },
+        { model: User, as: 'assignee', attributes: ['userId', 'firstName', 'lastName', 'email', 'role', 'isVerified', 'createdAt', 'updatedAt'] }
+      ]
     });
     return allReq;
   }
